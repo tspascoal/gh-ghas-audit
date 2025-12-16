@@ -65,10 +65,12 @@ Flags:
   -h, --help   help for code-scanning
 
 Global Flags:
-      --csv-output string               File path to output CSV report
   -o, --organizations string            Comma separated list of organizations to audit
   -r, --repository string               Single repository to audit
       --security-configuration string   Filter repositories by security configuration name
+      --csv-output string      File path to output CSV report
+      --skip-archived          Skip archived repositories
+      --skip-forks             Skip forked repositories
 ```
 
 ### Terminal Output

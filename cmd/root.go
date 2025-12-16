@@ -11,8 +11,10 @@ import (
 var (
 	Organizations         string
 	Repository            string
-	CSVOutput             string // File path for CSV output
 	SecurityConfiguration string // Security configuration name to filter repos
+	CSVOutput     string // File path for CSV output
+	SkipArchived  bool   // Skip archived repositories
+	SkipForks     bool   // Skip forked repositories
 )
 
 // rootCmd is the base command called without any subcommands.
@@ -46,7 +48,26 @@ func init() {
 		"",
 		"File path to output CSV report",
 	)
-	rootCmd.PersistentFlags().StringVar(&SecurityConfiguration, "security-configuration", "", "Filter repositories by security configuration name")
+	rootCmd.PersistentFlags().StringVar(
+    &SecurityConfiguration, 
+    "security-configuration",
+    "",
+    "Filter repositories by security configuration name",
+  )
+	rootCmd.PersistentFlags().BoolVar(
+		&SkipArchived,
+		"skip-archived",
+		false,
+		"Skip archived repositories",
+	)
+	rootCmd.PersistentFlags().BoolVar(
+		&SkipForks,
+		"skip-forks",
+		false,
+		"Skip forked repositories",
+	)
+
+	// Attach code-scanning subcommand.
 	rootCmd.AddCommand(codeScanningAuditCmd)
 }
 

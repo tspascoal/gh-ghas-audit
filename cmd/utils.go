@@ -259,7 +259,9 @@ func ListRepos(client *api.RESTClient, org string, securityConfiguration string)
 		}
 
 		var repoList []struct {
-			Name string
+			Name     string
+			Archived bool
+			Fork     bool
 		}
 
 		// Decode response body
@@ -269,6 +271,12 @@ func ListRepos(client *api.RESTClient, org string, securityConfiguration string)
 		}
 
 		for _, repo := range repoList {
+			if SkipArchived && repo.Archived {
+				continue
+			}
+			if SkipForks && repo.Fork {
+				continue
+			}
 			repos = append(repos, repo.Name)
 		}
 
